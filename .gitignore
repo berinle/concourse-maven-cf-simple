@@ -1,5 +1,1 @@
-.classpath
-.project
-.settings/
-target/
-pipeline-secrets.yml
+secrets.yml

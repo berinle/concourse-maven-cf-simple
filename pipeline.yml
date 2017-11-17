@@ -5,10 +5,10 @@ resources:
 - name: source-code
   type: git
   source:
-    uri: https://github.com/patrickcrocker/concourse-maven-cf-simple.git
+    uri: https://github.com/berinle/concourse-maven-cf-simple.git
     branch: master
 
-- name: cf
+- name: deploy
   type: cf
   source:
     api: {{cf-api}}
@@ -16,7 +16,7 @@ resources:
     password: {{cf-password}}
     organization: {{cf-organization}}
     space: {{cf-space}}
-    #skip_cert_check: true
+    skip_cert_check: true
 
 jobs:
 - name: build
@@ -26,7 +26,7 @@ jobs:
     trigger: true
   - task: build
     file: source-code/ci/build.yml
-  - put: cf
+  - put: deploy
     params:
       manifest: source-code/manifest.yml
       path: build-output/concourse-maven-cf-simple-0.0.1-SNAPSHOT.jar
